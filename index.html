@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="./utils/utility.css" />
+    <link rel="icon" type="image/x-icon" href="./src/favicon.ico" />
     <title>spotify-clone</title>
   </head>
   <body>
@@ -13,9 +14,9 @@
       <div class="left">
         <div class="home bg-grey rounded m-1 p-1">
           <div class="logo">
-            <img class="invert" src="./src/logo.svg" alt="logo" />
-            <h2>Spotify</h2>
+            <img class="invert" width="120" src="./src/logo.svg" alt="logo" />
           </div>
+
           <ul>
             <li><img class="invert" src="./src/home.svg" alt="home" />Home</li>
             <li>
@@ -27,6 +28,9 @@
           <div class="heading">
             <img class="invert" src="./src/playlist.svg" alt="playlist" />
             <h2>Your Library</h2>
+          </div>
+          <div class="songlist">
+            <ul></ul>
           </div>
           <div class="footer">
             <div>
@@ -60,7 +64,7 @@
           </div>
         </div>
       </div>
-      <div class="right bg-grey rounded p">
+      <div class="right bg-grey rounded">
         <div class="header">
           <div class="nav">
             <svg
@@ -127,15 +131,150 @@
               <h2>Happy Hits!</h2>
               <p>Hits to boost your mood and fill with happiness!</p>
             </div>
+
+            <div class="card">
+              <div class="play">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M5 20V4L19 12L5 20Z"
+                    stroke="#141B34"
+                    stroke-width="1.5"
+                    stroke-linejoin="round"
+                    fill="#000"
+                  />
+                </svg>
+              </div>
+              <img
+                src="https://i.scdn.co/image/ab67616d00001e028fa95e3e74799cb0b2a1fb57"
+                alt="SongImage"
+              />
+              <h2>Happy Hits!</h2>
+              <p>Hits to boost your mood and fill with happiness!</p>
+            </div>
+            <div class="card">
+              <div class="play">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M5 20V4L19 12L5 20Z"
+                    stroke="#141B34"
+                    stroke-width="1.5"
+                    stroke-linejoin="round"
+                    fill="#000"
+                  />
+                </svg>
+              </div>
+              <img
+                src="https://i.scdn.co/image/ab67616d00001e028fa95e3e74799cb0b2a1fb57"
+                alt="SongImage"
+              />
+              <h2>Happy Hits!</h2>
+              <p>Hits to boost your mood and fill with happiness!</p>
+            </div>
+            <div class="card">
+              <div class="play">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M5 20V4L19 12L5 20Z"
+                    stroke="#141B34"
+                    stroke-width="1.5"
+                    stroke-linejoin="round"
+                    fill="#000"
+                  />
+                </svg>
+              </div>
+              <img
+                src="https://i.scdn.co/image/ab67616d00001e028fa95e3e74799cb0b2a1fb57"
+                alt="SongImage"
+              />
+              <h2>Happy Hits!</h2>
+              <p>Hits to boost your mood and fill with happiness!</p>
+            </div>
+            <div class="card">
+              <div class="play">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M5 20V4L19 12L5 20Z"
+                    stroke="#141B34"
+                    stroke-width="1.5"
+                    stroke-linejoin="round"
+                    fill="#000"
+                  />
+                </svg>
+              </div>
+              <img
+                src="https://i.scdn.co/image/ab67616d00001e028fa95e3e74799cb0b2a1fb57"
+                alt="SongImage"
+              />
+              <h2>Happy Hits!</h2>
+              <p>Hits to boost your mood and fill with happiness!</p>
+            </div>
+            <div class="card">
+              <div class="play">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M5 20V4L19 12L5 20Z"
+                    stroke="#141B34"
+                    stroke-width="1.5"
+                    stroke-linejoin="round"
+                    fill="#000"
+                  />
+                </svg>
+              </div>
+              <img
+                src="https://i.scdn.co/image/ab67616d00001e028fa95e3e74799cb0b2a1fb57"
+                alt="SongImage"
+              />
+              <h2>Happy Hits!</h2>
+              <p>Hits to boost your mood and fill with happiness!</p>
+            </div>
           </div>
           <div class="playbar">
-            <div class="songinfo">song info</div>
-            <div class="songbuttons">
-              <img src="./src/prevsong.svg" alt="previous song" />
-              <img src="./src/play.svg" alt="play song" />
-              <img src="./src/nextsong.svg" alt="next song" />
+            <div class="seekbar">
+              <div class="circle"></div>
             </div>
-            <div class="songtime">song time</div>
+            <div class="abovebar">
+              <div class="songinfo"></div>
+              <div class="songbuttons">
+                <img
+                  id="previous"
+                  src="./src/prevsong.svg"
+                  alt="previous song"
+                />
+                <img id="play" src="./src/pause.svg" alt="play song" />
+                <img id="next" src="./src/nextsong.svg" alt="next song" />
+              </div>
+              <div class="songtime"></div>
+            </div>
           </div>
         </div>
       </div>
