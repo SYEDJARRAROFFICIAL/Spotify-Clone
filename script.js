@@ -1,6 +1,6 @@
 console.log("Hello, Spotify Clone!");
 let currentSong = new Audio();
-
+let songs = [];
 function secondsToMinutesSeconds(seconds) {
   if (isNaN(seconds) || seconds < 0) {
     return "00:00";
@@ -16,7 +16,7 @@ function secondsToMinutesSeconds(seconds) {
 }
 
 async function getSongs() {
-  let a = await fetch("http://127.0.0.1:3000/songs/");
+  let a = await fetch("./songs/");
   let response = await a.text();
   let div = document.createElement("div");
   div.innerHTML = response;
@@ -25,26 +25,61 @@ async function getSongs() {
   for (let index = 0; index < as.length; index++) {
     const element = as[index];
     if (element.href.endsWith(".mp3")) {
-      songs.push(element.href.split("songs%5C").pop().replaceAll("%20", " "));
+      songs.push(
+        element.href.split("%5Csongs%5C").pop().replaceAll("%20", " ")
+      );
     }
   }
   return songs;
 }
 
-const playMusic = (track, pause = false) => {
-  //   let audio = new Audio(`/songs/${track}`);
+// const playMusic = (track, pause = false) => {
 
-  currentSong.src = `/songs/${track}`;
-  if (!pause) {
-    currentSong.play();
+//   currentSong.src = `/songs/${track}`;
+//   if (!pause) {
+//     currentSong.play();
+//   }
+//   play.src = "./src/assets/svg/pause.svg";
+//   document.querySelector(".songinfo").innerHTML = track;
+//   document.querySelector(".songtime").innerHTML = "00:00 / 00:00";
+// };
+
+const playMusic = async (track, pause = false) => {
+  try {
+    // Stop current song if playing
+    if (!currentSong.paused) {
+      currentSong.pause();
+    }
+
+    // Reset the audio source
+    currentSong.src = `/songs/${track}`;
+
+    // Wait for the audio to load
+    await new Promise((resolve, reject) => {
+      currentSong.addEventListener("loadeddata", resolve, { once: true });
+      currentSong.addEventListener("error", reject, { once: true });
+    });
+
+    // Update UI immediately
+    document.querySelector(".songinfo").innerHTML = track;
+    document.querySelector(".songtime").innerHTML = "00:00 / 00:00";
+
+    // Play if not paused
+    if (!pause) {
+      await currentSong.play();
+      play.src = "./src/assets/svg/pause.svg";
+    } else {
+      play.src = "./src/assets/svg/play.svg";
+    }
+  } catch (error) {
+    console.error("Error playing music:", error);
+    play.src = "./src/assets/svg/play.svg";
   }
-  play.src = "./src/pause.svg";
-  document.querySelector(".songinfo").innerHTML = track;
-  document.querySelector(".songtime").innerHTML = "00:00 / 00:00";
 };
+
 async function main() {
   // Get all songs
-  let songs = await getSongs();
+  songs = await getSongs();
   playMusic(songs[0], true);
   // display all songs in the playlist
   let songUL = document
@@ -55,14 +90,14 @@ async function main() {
       songUL.innerHTML +
       `
     <li>
-                <img class="invert" src="./src/music.svg" alt="music image" />
+                <img class="invert" src="./src/assets/svg/music.svg" alt="music image" />
                 <div class="info">
                   <div>${song}</div>
                   <div>Syed Jarrar</div>
                 </div>
                 <div class="playnow">
                   <span>Play Now</span>
-                  <img class="invert" src="./src/playnow.svg" alt="play song" />
+                  <img class="invert" src="./src/assets/svg/playnow.svg" alt="play song" />
                 </div>
               </li>`;
   }
@@ -82,10 +117,10 @@ async function main() {
   play.addEventListener("click", () => {
     if (currentSong.paused) {
       currentSong.play();
-      play.src = "./src/pause.svg";
+      play.src = "./src/assets/svg/pause.svg";
     } else {
       currentSong.pause();
-      play.src = "./src/play.svg";
+      play.src = "./src/assets/svg/play.svg";
     }
   });
   document.getElementById("next").addEventListener("click", () => {
@@ -111,5 +146,51 @@ async function main() {
     currentSong.currentTime = (currentSong.duration * percent) / 100;
     console.log(percent);
   });
+
+  // add an event listener for hamburger menu
+  document
+    .querySelector(".hamburger-container")
+    .addEventListener("click", () => {
+      document.querySelector(".left").style.left = "0%";
+    });
+  // add an event listener for close button
+  document.querySelector(".close").addEventListener("click", () => {
+    document.querySelector(".left").style.left = "-120%";
+  });
+  // add an event listener for previous button in the above bar
+  previous.addEventListener("click", () => {
+    // console.log("Previous song");
+    let index = songs.indexOf(currentSong.src.split("/").pop());
+    if (index > 0) {
+      index--;
+    } else {
+      index = songs.length - 1; // Go to last song
+    }
+    playMusic(songs[index]);
+    // console.log(songs[index]);
+  });
+
+  // add an event listener for next button in the above bar
+
+  next.addEventListener("click", () => {
+    // console.log("Next song");
+    let index = songs.indexOf(currentSong.src.split("/").pop());
+    if (index >= 0 && index < songs.length - 1) {
+      index++;
+    } else {
+      index = 0; // Go to first song
+    }
+    playMusic(songs[index]);
+    // console.log(songs[index]);
+  });
+
+  // add an event listener for volume control
+  document
+    .querySelector(".range")
+    .getElementsByTagName("input")[0]
+    .addEventListener("change", (e) => {
+      console.log(`Setting volume to: ${e.target.value}`);
+      currentSong.volume = parseInt(e.target.value) / 100;
+    });
 }
 main();
