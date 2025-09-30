@@ -124,6 +124,7 @@ img {
   border-radius: 5px;
   background-color: #252525;
   position: relative;
+  transition: all 1s;
 }
 .card > * {
   padding-top: 10px;
@@ -154,13 +155,14 @@ img {
   transform: translateX(2px); /* Shift SVG slightly to the right */
 }
 .card:hover {
-  background-color: #333333;
+  /* background-color: #333333; */
+  background-color: black;
   cursor: pointer;
 }
 
 .card:hover .play {
   transform: translateY(0%);
-  top: 170px;
+  top: 50%;
   opacity: 1;
   cursor: pointer;
 }
