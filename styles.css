@@ -316,6 +316,9 @@ img {
   gap: 22px;
   cursor: pointer;
 }
+.range input {
+  cursor: pointer;
+}
 @media (max-width: 1200px) {
   .left {
     position: absolute;
@@ -393,10 +396,13 @@ img {
     font-size: 14px;
     font-weight: bold;
   }
+  .cardContainer {
+    max-height: 50vh;
+  }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 500) {
   .card {
-    width: 84vw;
+    width: auto;
   }
 }
