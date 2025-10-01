@@ -377,12 +377,12 @@ img {
     justify-content: center;
   }
   .card {
-    width: 60vw;
+    width: 44vw;
   }
   .abovebar {
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 23px;
   }
   .buttons {
     gap: 5px;
