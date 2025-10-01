@@ -157,6 +157,8 @@ async function displayAlbums() {
               <img
                 src="/songs/${folder}/cover.jpg"
                 alt="SongImage"
+                height="200"
+                width="200"
               />
               <h2>${metadata.title}</h2>
               <p>${metadata.description}</p>
