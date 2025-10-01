@@ -27,7 +27,9 @@ async function getSongs(folder) {
     const element = as[index];
     if (element.href.endsWith(".mp3")) {
       // Just get the filename, not the full path
-      let fileName = element.innerText; // Use innerText instead of href
+      let fileName = element.href.split("/").pop(); // Use innerText instead of href
+      console.log("Found song name:", fileName);
+
       if (fileName.endsWith(".mp3")) {
         songs.push(fileName);
       }
@@ -58,11 +60,11 @@ async function getSongs(folder) {
     document.querySelector(".songlist").getElementsByTagName("li")
   ).forEach((e) => {
     e.addEventListener("click", (element) => {
-      console.log(e.querySelector(".info").firstElementChild.innerText);
+      // console.log(e.querySelector(".info").firstElementChild.innerText);
       playMusic(e.querySelector(".info").firstElementChild.innerText);
     });
   });
-  console.log("Songs found:", songs);
+  // console.log("Songs found:", songs);
   return songs;
 }
 
@@ -114,12 +116,20 @@ async function displayAlbums() {
   for (let index = 0; index < array.length; index++) {
     const element = array[index];
 
-    if (element.href.includes("%5Csongs%5C")) {
-      let folder = element.href.split("%5C").pop().replace("/", "");
+    if (
+      element.href.includes("/songs/") ||
+      element.href.includes("%5Csongs%5C")
+    ) {
+      console.log("Album found:", element.href);
+      // for live preview dev extentension
+      //       let folder = element.href.split("%5C").pop().replace("/", "");
+
+      let folder = element.href.split("/").pop().replace("/", "");
+      // console.log("folder", folder);
       // get the metadata of the folder
       let a = await fetch(`./songs/${folder}/info.json`);
       let metadata = await a.json();
-      console.log("metadata.title", metadata.title);
+      // console.log("metadata.title", metadata.title);
       // console.log("anchor", a);
       // console.log("folder", folder);
       // console.log("Album found:", metadata);
@@ -202,7 +212,7 @@ async function main() {
     let percent = (e.offsetX / e.target.clientWidth) * 100;
     document.querySelector(".circle").style.left = percent + "%";
     currentSong.currentTime = (currentSong.duration * percent) / 100;
-    console.log(percent);
+    // console.log(percent);
   });
 
   // add an event listener for hamburger menu
@@ -247,7 +257,7 @@ async function main() {
     .querySelector(".range")
     .getElementsByTagName("input")[0]
     .addEventListener("change", (e) => {
-      console.log(`Setting volume to: ${e.target.value}`);
+      // console.log(`Setting volume to: ${e.target.value}`);
       currentSong.volume = parseInt(e.target.value) / 100;
     });
   // Add Event Listener to mute th track
