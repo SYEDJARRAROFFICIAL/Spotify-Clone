@@ -101,7 +101,7 @@ const playMusic = async (track, pause = false) => {
   }
 };
 async function displayAlbums() {
-  let a = await fetch("./songs/");
+  let a = await fetch("./src/songs");
   let response = await a.text();
   let div = document.createElement("div");
   div.innerHTML = response;
@@ -117,7 +117,7 @@ async function displayAlbums() {
     const element = array[index];
 
     if (
-      element.href.includes("/songs/") ||
+      element.href.includes("./src/songs") ||
       element.href.includes("%5Csongs%5C")
     ) {
       console.log("Album found:", element.href);
@@ -168,7 +168,7 @@ async function displayAlbums() {
   // load the playlist when card is clicked
   Array.from(document.getElementsByClassName("card")).forEach((e) => {
     e.addEventListener("click", async (item) => {
-      songs = await getSongs(`songs/${item.currentTarget.dataset.folder}`);
+      songs = await getSongs(`/src/songs/${item.currentTarget.dataset.folder}`);
       playMusic(songs[0]);
     });
   });
